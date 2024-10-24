@@ -19,19 +19,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="super">
+    <meta name="description" content="定义跳转工具: 1ctags -R . 通过ctrl+]便能实现跳转 vim插件管理工具下载： 12curl -fLo ~&#x2F;.vim&#x2F;autoload&#x2F;plug.vim --create-dirs \https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;junegunn&#x2F;vim-plug&#x2F;master&#x2F;plug.vim  修改vim配置文件： 1vim ~&#x2F;.vimrc  将下面代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim开发环境配置">
 <meta property="og:url" content="http://example.com/2024/10/20/super/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="定义跳转工具: 1ctags -R . 通过ctrl+]便能实现跳转 vim插件管理工具下载： 12curl -fLo ~&#x2F;.vim&#x2F;autoload&#x2F;plug.vim --create-dirs \https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;junegunn&#x2F;vim-plug&#x2F;master&#x2F;plug.vim  修改vim配置文件： 1vim ~&#x2F;.vimrc  将下面代码">
 <meta property="og:locale" content="zh_CH">
 <meta property="article:published_time" content="2024-10-20T13:44:28.000Z">
-<meta property="article:modified_time" content="2024-10-20T13:44:28.510Z">
+<meta property="article:modified_time" content="2024-10-24T15:22:25.499Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>super - Hexo</title>
+  <title>vim开发环境配置 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="super"></span>
+            <span id="subtitle" data-typed-text="vim开发环境配置"></span>
           
         </div>
 
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 wörter
+          205 wörter
         
       </span>
     
@@ -231,7 +233,7 @@
         
         
         
-          1 minuten
+          2 minuten
         
       </span>
     
@@ -268,12 +270,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">super</h1>
+            <h1 id="seo-header">vim开发环境配置</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <p>定义跳转工具:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">ctags -<span class="hljs-attribute">R</span> .<br></code></pre></td></tr></table></figure>
+<p>通过ctrl+]便能实现跳转</p>
+<p>vim插件管理工具下载：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim">curl -fLo ~/.<span class="hljs-keyword">vim</span>/autoload/plug.<span class="hljs-keyword">vim</span> --create-dirs \<br>https://raw.githubusercontent.<span class="hljs-keyword">com</span>/junegunn/<span class="hljs-keyword">vim</span>-plug/master/plug.<span class="hljs-keyword">vim</span><br></code></pre></td></tr></table></figure>
+
+<p>修改vim配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim ~/.vimrc<br></code></pre></td></tr></table></figure>
+
+<p>将下面代码粘贴到vimrc文件中，代码自动补全，显示行号等功能：</p>
+<figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs leaf">call plug<span class="hljs-punctuation">#</span><span class="hljs-keyword">begin</span><span class="hljs-params">(&#x27;~<span class="hljs-operator">/</span>.<span class="hljs-variable">vim</span><span class="hljs-operator">/</span><span class="hljs-variable">plugged</span>&#x27;)</span><br><br>&quot; Python 语法高亮和缩进<br>Plug &#x27;sheerun/vim-polyglot&#x27;<br><br>&quot; 自动补全（需要配合 coc.nvim 使用）<br>Plug &#x27;neoclide/coc.nvim&#x27;, &#123;&#x27;branch&#x27;: &#x27;release&#x27;&#125;<br><br>&quot; Python 代码格式化（集成 Black）<br>Plug &#x27;psf/black&#x27;, &#123;&#x27;branch&#x27;: &#x27;main&#x27;&#125;<br><br>&quot; Python Linting（集成 flake8）<br>Plug &#x27;dense-analysis/ale&#x27;<br><br>call plug<span class="hljs-punctuation">#</span><span class="hljs-keyword">end</span><span class="hljs-params">()</span><br><br>set number<br>&quot; 实现回车键自动补全代码<br>inoremap &lt;silent&gt;&lt;expr&gt; &lt;CR&gt; pumvisible() ? coc<span class="hljs-punctuation">#</span><span class="hljs-keyword">_select_confirm</span><span class="hljs-params">()</span> : &quot;\&lt;CR&gt;&quot;<br></code></pre></td></tr></table></figure>
+
+<p>接下来，命令行输入vim，安装插件：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure"><span class="hljs-symbol">:PlugInstall</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -290,7 +305,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>super</div>
+      <div>vim开发环境配置</div>
       <div>http://example.com/2024/10/20/super/</div>
     </div>
     <div class="license-meta">
