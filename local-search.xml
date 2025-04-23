@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>bcache使用</title>
+    <link href="/2025/04/23/bcache%E4%BD%BF%E7%94%A8/"/>
+    <url>/2025/04/23/bcache%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p>这篇博客使用持久内存加速SSD，主要介绍bcache使用过程中感觉缓存没有生效的原因。<br>网上很多bcahce安装使用的介绍，这里省去，直接放命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">wipefs -a /dev/pmem0.1 /dev/sdc1<br>make-bcache -B /dev/sdc1<br>make-bcache -C /dev/pmem0.1<br><span class="hljs-built_in">echo</span> /dev/sdc1 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/fs/bcache/register<br><span class="hljs-built_in">echo</span> /dev/pmem0.1 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/fs/bcache/register<br><span class="hljs-comment">#查看缓存集uuid</span><br><span class="hljs-built_in">ls</span> /sys/fs/bcache/<br><span class="hljs-built_in">echo</span> &lt;uuid&gt; | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/attach<br></code></pre></td></tr></table></figure><p>格式化并挂载bcache0:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">mkfs.ext4 /dev/bcache0<br><span class="hljs-built_in">sudo</span> mount /dev/bcache0 /bcache<br></code></pre></td></tr></table></figure><p>这时候可以把bcache0看为一个盘来使用</p><p>四个比较重要的参数，前两个是如果缓存读写延迟超过多少会直接写入后端设备，这里禁用这个功能，让读写都经过缓存，第三个参数是bcache对于超过多少的顺序读写大小的请求会绕过缓存，这里禁用这个功能，第四个是写回策略的百分比，这里让尽可能多的请求都使用writeback_percent。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> 0 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/cache/congested_write_threshold_us<br><span class="hljs-built_in">echo</span> 0 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/cache/congested_read_threshold_us<br><span class="hljs-built_in">echo</span> 0 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/sequential_cutoff<br><span class="hljs-built_in">echo</span> 100 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/writeback_percent<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>webui与deepseek671B部署</title>
     <link href="/2025/02/27/deepseek671B%E9%83%A8%E7%BD%B2/"/>
     <url>/2025/02/27/deepseek671B%E9%83%A8%E7%BD%B2/</url>

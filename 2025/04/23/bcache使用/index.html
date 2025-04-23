@@ -19,21 +19,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="创建可以使用gpu的容器创建容器： 1docker run -d --name deepseek-webui -p 8001:8080 --gpus all nvidia&#x2F;cuda:12.1.1-base-ubuntu22.04 sleep infinity 进入容器： 1docker exec -it deepseek-webui &#x2F;bin&#x2F;bash 容器内安装webui与ollama下载安">
+    <meta name="description" content="这篇博客使用持久内存加速SSD，主要介绍bcache使用过程中感觉缓存没有生效的原因。网上很多bcahce安装使用的介绍，这里省去，直接放命令： 12345678wipefs -a &#x2F;dev&#x2F;pmem0.1 &#x2F;dev&#x2F;sdc1make-bcache -B &#x2F;dev&#x2F;sdc1make-bcache -C &#x2F;dev&#x2F;pmem0.1echo &#x2F;dev&#x2F;sdc1 | sudo tee &#x2F;sys&#x2F;fs&#x2F;bc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webui与deepseek671B部署">
-<meta property="og:url" content="http://example.com/2025/02/27/deepseek671B%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:title" content="bcache使用">
+<meta property="og:url" content="http://example.com/2025/04/23/bcache%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="创建可以使用gpu的容器创建容器： 1docker run -d --name deepseek-webui -p 8001:8080 --gpus all nvidia&#x2F;cuda:12.1.1-base-ubuntu22.04 sleep infinity 进入容器： 1docker exec -it deepseek-webui &#x2F;bin&#x2F;bash 容器内安装webui与ollama下载安">
+<meta property="og:description" content="这篇博客使用持久内存加速SSD，主要介绍bcache使用过程中感觉缓存没有生效的原因。网上很多bcahce安装使用的介绍，这里省去，直接放命令： 12345678wipefs -a &#x2F;dev&#x2F;pmem0.1 &#x2F;dev&#x2F;sdc1make-bcache -B &#x2F;dev&#x2F;sdc1make-bcache -C &#x2F;dev&#x2F;pmem0.1echo &#x2F;dev&#x2F;sdc1 | sudo tee &#x2F;sys&#x2F;fs&#x2F;bc">
 <meta property="og:locale" content="zh_CH">
-<meta property="article:published_time" content="2025-02-27T07:09:17.000Z">
-<meta property="article:modified_time" content="2025-03-20T11:06:03.539Z">
+<meta property="article:published_time" content="2025-04-23T05:04:43.000Z">
+<meta property="article:modified_time" content="2025-04-23T05:24:36.016Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>webui与deepseek671B部署 - Hexo</title>
+  <title>bcache使用 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="webui与deepseek671B部署"></span>
+            <span id="subtitle" data-typed-text="bcache使用"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-27 15:09" pubdate>
-          February 27, 2025 pm
+        <time datetime="2025-04-23 13:04" pubdate>
+          April 23, 2025 pm
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          274 wörter
+          271 wörter
         
       </span>
     
@@ -270,47 +270,20 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">webui与deepseek671B部署</h1>
+            <h1 id="seo-header">bcache使用</h1>
             
             
               <div class="markdown-body">
                 
-                <meta name="referrer" content="no-referrer" />
+                <p>这篇博客使用持久内存加速SSD，主要介绍bcache使用过程中感觉缓存没有生效的原因。<br>网上很多bcahce安装使用的介绍，这里省去，直接放命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">wipefs -a /dev/pmem0.1 /dev/sdc1<br>make-bcache -B /dev/sdc1<br>make-bcache -C /dev/pmem0.1<br><span class="hljs-built_in">echo</span> /dev/sdc1 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/fs/bcache/register<br><span class="hljs-built_in">echo</span> /dev/pmem0.1 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/fs/bcache/register<br><span class="hljs-comment">#查看缓存集uuid</span><br><span class="hljs-built_in">ls</span> /sys/fs/bcache/<br><span class="hljs-built_in">echo</span> &lt;uuid&gt; | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/attach<br></code></pre></td></tr></table></figure>
 
-<h2 id="创建可以使用gpu的容器"><a href="#创建可以使用gpu的容器" class="headerlink" title="创建可以使用gpu的容器"></a>创建可以使用gpu的容器</h2><p>创建容器：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> run -d --name deepseek-webui -p <span class="hljs-number">8001</span>:<span class="hljs-number">8080</span> --gpus <span class="hljs-literal">all</span> nvidia/cuda:<span class="hljs-number">12</span>.<span class="hljs-number">1</span>.<span class="hljs-number">1</span>-base-ubuntu22.<span class="hljs-number">04</span> sleep infinity<br></code></pre></td></tr></table></figure>
-<p>进入容器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it deepseek-webui /bin/bash<br></code></pre></td></tr></table></figure>
-<h2 id="容器内安装webui与ollama"><a href="#容器内安装webui与ollama" class="headerlink" title="容器内安装webui与ollama"></a>容器内安装webui与ollama</h2><p>下载安装miniconda:</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim">apt <span class="hljs-keyword">update</span><br>apt install wget<br>wget https://repo.anaconda.<span class="hljs-keyword">com</span>/miniconda/Miniconda3-latest-Linux-x86_64.<span class="hljs-keyword">sh</span><br>bash Miniconda3-latest-Linux-x86_64.<span class="hljs-keyword">sh</span><br><span class="hljs-keyword">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
-<p>创建conda环境并安装webui:</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gauss">conda <span class="hljs-keyword">create</span> -n webui python=<span class="hljs-number">3.11</span><br>conda activate webui<br>pip install <span class="hljs-keyword">open</span>-webui<br><span class="hljs-keyword">open</span>-webui serve<br></code></pre></td></tr></table></figure>
 
-<p>本次在cpu上进行deepseek推理部署，选用deepseek-r1-671b-1.58bit量化模型。<br>首先安装ollama:</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vim">apt install curl<br>apt install systemctl<br>curl -fsSL https://ollama.<span class="hljs-keyword">com</span>/install.<span class="hljs-keyword">sh</span> -<span class="hljs-keyword">o</span> ollama_install.<span class="hljs-keyword">sh</span><br>chmod +<span class="hljs-keyword">x</span> ollama_install.<span class="hljs-keyword">sh</span><br>sed -i <span class="hljs-string">&#x27;s|https://ollama.com/download/|https://github.com/ollama/ollama/releases/download/v0.5.7/|&#x27;</span> ollama_install.<span class="hljs-keyword">sh</span><br><span class="hljs-keyword">sh</span> ollama_install.<span class="hljs-keyword">sh</span><br>systemctl start ollama<br></code></pre></td></tr></table></figure>
-
-<h2 id="模型拉取与执行"><a href="#模型拉取与执行" class="headerlink" title="模型拉取与执行"></a>模型拉取与执行</h2><p>拉取模型：</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">ollama pull SIGJNF/deepseek-r1-<span class="hljs-number">671b-1</span>.58bit<br></code></pre></td></tr></table></figure>
-
-<p>配置文件：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">vim</span> cpu.modelfile<br></code></pre></td></tr></table></figure>
-<p>写入如下内容：</p>
-<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs smalltalk"><span class="hljs-type">FROM</span> <span class="hljs-type">SIGJNF</span>/deepseek-r1<span class="hljs-number">-671</span>b<span class="hljs-number">-1.58</span>bit:latest<br><br><span class="hljs-type">PARAMETER</span> num_gpu <span class="hljs-number">0</span><br><span class="hljs-type">SYSTEM</span> <span class="hljs-comment">&quot;&quot;</span><span class="hljs-comment">&quot;A conversation between User and Assistant. The user asks a question, and the Assistant solves it. The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within &lt;think&gt; &lt;/think&gt; and &lt;answer&gt; &lt;/answer&gt; tags, respectively, i.e., &lt;think&gt; reasoning process here &lt;/think&gt;&lt;answer&gt; answer here &lt;/answer&gt;&quot;</span><span class="hljs-comment">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>创建模型：</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">ollama create SIGJNF/deepseek-r1-<span class="hljs-number">671b-1</span>.58bit:cpu -f cpu.modelfile<br></code></pre></td></tr></table></figure>
-
-<p>设置加载超时时间：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">OLLAMA_LOAD_TIMEOUT</span>=360m<br></code></pre></td></tr></table></figure>
-
-<p>如果没启动ollama的话，启动ollama服务：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ollama serve</span><br></code></pre></td></tr></table></figure>
-
-<p>启动模型：</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">ollama run SIGJNF/deepseek-r1-<span class="hljs-number">671b-1</span>.58bit:cpu<br></code></pre></td></tr></table></figure>
-
-<p>也可通过机器ip+端口号来访问webui使用模型</p>
-
+<p>格式化并挂载bcache0:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">mkfs.ext4 /dev/bcache0<br><span class="hljs-built_in">sudo</span> mount /dev/bcache0 /bcache<br></code></pre></td></tr></table></figure>
+<p>这时候可以把bcache0看为一个盘来使用</p>
+<p>四个比较重要的参数，前两个是如果缓存读写延迟超过多少会直接写入后端设备，这里禁用这个功能，让读写都经过缓存，第三个参数是bcache对于超过多少的顺序读写大小的请求会绕过缓存，这里禁用这个功能，第四个是写回策略的百分比，这里让尽可能多的请求都使用writeback_percent。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> 0 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/cache/congested_write_threshold_us<br><span class="hljs-built_in">echo</span> 0 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/cache/congested_read_threshold_us<br><span class="hljs-built_in">echo</span> 0 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/sequential_cutoff<br><span class="hljs-built_in">echo</span> 100 | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /sys/block/bcache0/bcache/writeback_percent<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -327,8 +300,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>webui与deepseek671B部署</div>
-      <div>http://example.com/2025/02/27/deepseek671B部署/</div>
+      <div>bcache使用</div>
+      <div>http://example.com/2025/04/23/bcache使用/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +313,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Veröffentlicht am</div>
-          <div>February 27, 2025</div>
+          <div>April 23, 2025</div>
         </div>
       
       
@@ -372,18 +345,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/23/bcache%E4%BD%BF%E7%94%A8/" title="bcache使用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">bcache使用</span>
-                        <span class="visible-mobile">Vorheriger</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/26/docker%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8/" title="docker创建容器">
-                        <span class="hidden-mobile">docker创建容器</span>
+                      <a href="/2025/02/27/deepseek671B%E9%83%A8%E7%BD%B2/" title="webui与deepseek671B部署">
+                        <span class="hidden-mobile">webui与deepseek671B部署</span>
                         <span class="visible-mobile">Nächster</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
